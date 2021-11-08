@@ -1,0 +1,6 @@
+**/__pycache__
+venv
+*.md
+Dockerfile
+**/example*
+.vscode
