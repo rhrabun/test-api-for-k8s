@@ -24,8 +24,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Load .env variables
+        id: dotenv
+        uses: ./.github/actions/dotenv-action
+      -
         name: Build and push
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/test-api-for-k8s:0.1.0
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.dotenv.outputs.DOCKER_IMAGE_NAME }}:${{ steps.dotenv.outputs.DOCKER_TAG }}
+          platforms: ${{ steps.dotenv.outputs.DOCKER_PLATFORM }}
+
