@@ -10,4 +10,4 @@ class Status(Resource):
         return {'status': 'Api is working',
                 'hostname': f'{hostname}',
                 'ip': f'{ip}',
-                'apiVersion': '1'}, 200
+                'apiVersion': '2'}, 200
