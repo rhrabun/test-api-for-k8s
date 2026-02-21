@@ -4,3 +4,5 @@ venv
 Dockerfile
 **/example*
 .vscode
+.github
+LICENSE
