@@ -11,6 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+      -
+        name: Load .env variables
+        id: dotenv
+        uses: falti/dotenv-action@v1.0.4
+        with:
+          log-variables: true
+          keys-case: bypass
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -23,13 +31,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Load .env variables
-        id: dotenv
-        uses: falti/dotenv-action@v1.0.4
-        with:
-          log-variables: true
-          keys-case: bypass
       -
         name: Build and push
         uses: docker/build-push-action@v5
