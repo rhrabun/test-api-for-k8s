@@ -7,9 +7,12 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
 
       # - name: Set up QEMU
       #   uses: docker/setup-qemu-action@v3
@@ -32,13 +35,14 @@ jobs:
 
       - name: Git Tag
         id: tag
-        uses: codacy/git-version@2.4.0
-        with:
-          release-branch: main
-          dev-branch: dev
+        uses: anothrNick/github-tag-action@1.67.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
+          WITH_V: false
+          DEFAULT_BRANCH: main
       
       - name: Use the version
-        run: echo ${{ steps.tag.outputs.version }}
+        run: echo ${{ steps.tag.outputs.new_tag }}
 
       # - name: Build and push
       #   uses: docker/build-push-action@v5
