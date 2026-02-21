@@ -26,7 +26,10 @@ jobs:
       -
         name: Load .env variables
         id: dotenv
-        uses: ./.github/actions/dotenv-action
+        uses: falti/dotenv-action@v1.0.4
+        with:
+          log-variables: true
+          keys-case: bypass
       -
         name: Build and push
         uses: docker/build-push-action@v5
@@ -35,3 +38,5 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.dotenv.outputs.DOCKER_IMAGE_NAME }}:${{ steps.dotenv.outputs.DOCKER_TAG }}
           platforms: ${{ steps.dotenv.outputs.DOCKER_PLATFORM }}
 
+                
+            
